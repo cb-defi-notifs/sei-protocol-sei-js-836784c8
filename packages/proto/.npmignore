@@ -15,12 +15,7 @@ yarn.lock
 # project files
 __fixtures__
 __tests__
-.babelrc
-.babelrc.js
 .editorconfig
-.eslintignore
-.eslintrc
-.eslintrc.js
 .gitignore
 .travis.yml
 .vscode
@@ -30,3 +25,13 @@ jest.config.js
 package.json
 src
 test
+
+.gitkeep
+jest.config.ts
+tsconfig.json
+.nvmrc
+yarn-error.log
+
+docs
+scripts
+proto

@@ -22,6 +22,9 @@ jobs:
         with:
           node-version: 18
 
+      - uses: browser-actions/setup-chrome@v1
+      - run: chrome --version
+
       - name: Install dependencies
         run: yarn install
 
@@ -34,6 +37,6 @@ jobs:
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         with:
-          files: ./packages/core/coverage/coverage-final.json,./packages/react/coverage/coverage-final.json,./packages/proto/coverage/coverage-final.json
+          files: ./coverage/coverage-final.json
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true

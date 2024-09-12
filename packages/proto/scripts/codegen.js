@@ -1,9 +1,9 @@
-import { join } from 'path';
-import telescope from '@osmonauts/telescope';
-import { sync as rimraf } from 'rimraf';
+const path = require('path');
+const telescope = require('@cosmology/telescope').default;
+const rimraf = require('rimraf').sync;
 
-const protoDirs = [join(__dirname, '/../proto')];
-const outPath = join(__dirname, '../src/codegen');
+const protoDirs = [path.join(__dirname, '/../proto')];
+const outPath = path.join(__dirname, '../src/codegen');
 rimraf(outPath);
 
 telescope({
@@ -11,8 +11,9 @@ telescope({
 	outPath,
 	options: {
 		removeUnusedImports: true,
-		tsDisable: {
-			patterns: ['**/*amino.ts', '**/*registry.ts']
+		interfaces: {
+			//This fixes some typescript errors in the generated code when using Any type
+			useUnionTypes: true
 		},
 		prototypes: {
 			excluded: {
@@ -24,11 +25,8 @@ telescope({
 					'cosmos.base.reflection.v1beta1',
 					'cosmos.base.snapshots.v1beta1',
 					'cosmos.base.store.v1beta1',
-					'cosmos.base.tendermint.v1beta1',
 					'cosmos.capability.v1beta1',
 					'cosmos.crisis.v1beta1',
-					'cosmos.evidence.v1beta1',
-					'cosmos.feegrant.v1beta1',
 					'cosmos.genutil.v1beta1',
 					'cosmos.gov.v1',
 					'cosmos.group.v1',
@@ -39,18 +37,16 @@ telescope({
 					'cosmos.orm.v1',
 					'cosmos.orm.v1alpha1',
 					'cosmos.params.v1beta1',
-					'cosmos.slashing.v1beta1',
 					'cosmos.vesting.v1beta1',
-					'google.api',
-					'ibc.core.port.v1',
-					'ibc.core.types.v1'
+					'google.api'
 				]
 			},
+			enableRegistryLoader: true,
+			enableMessageComposer: true,
 			includePackageVar: false,
+			allowUndefinedTypes: true,
 			typingsFormat: {
-				useExact: false,
-				timestamp: 'date',
-				duration: 'duration'
+				useTelescopeGeneratedType: true
 			}
 		},
 		aminoEncoding: {
